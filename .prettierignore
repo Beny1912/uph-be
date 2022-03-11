@@ -1,0 +1,8 @@
+node_modules
+dist
+assets
+__mocks__
+__tests__
+docs
+env
+npm-scripts
