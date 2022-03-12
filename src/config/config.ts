@@ -1,3 +1,3 @@
 export const db: string =
   process.env["MONGO_URI"] ||
-  "mongodb://beny:wefox@mongodb:27017/test?authSource=admin";
+  "mongodb+srv://beny:polencito@cluster0.ha48h.mongodb.net/uphold?retryWrites=true&w=majority";
