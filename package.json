@@ -7,7 +7,7 @@
   "scripts": {
     "prestart": "node ./npm-scripts/prestart.js pro",
     "start": "node .",
-    "start-dev": "node ./npm-scripts/prestart.js dev && nodemon ./src/index.ts",
+    "start-dev": "nodemon ./src/index.ts",
     "start-pro": "node ./npm-scripts/prestart.js pro && nodemon ./src/index.ts",
     "build": "tsc --skipLibCheck",
     "test": "jest --passWithNoTests",
