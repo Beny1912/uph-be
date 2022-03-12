@@ -1,33 +1,33 @@
 version: "3.7"
 services:
-  # api:
-  #   container_name: api
-  #   build: .
-  #   ports:
-  #     - 3000:3000
+  bot:
+    container_name: bot-beny
+    build: .
+    # ports:
+    #   - 3000:3000
   #   depends_on:
   #     - mongodb
   #     - redis
-  mongodb:
-    container_name: mongo
-    image: mongo:4.4.11
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: beny
-      MONGO_INITDB_ROOT_PASSWORD: wefox
-      MONGO_INITDB_DATABASE: test
-    ports:
-      - 27017:27017
-    volumes:
-      - mongodb_data_container:/data/db
-    restart: unless-stopped
-  redis:
-    image: "redis:6.2-alpine"
-    ports:
-      - "6379:6379"
-    command: redis-server --save 60 1 --requirepass wefox --loglevel warning
-    volumes:
-      - redis_data:/data
-    restart: always
-volumes:
-  mongodb_data_container:
-  redis_data:
+  # mongodb:
+  #   container_name: mongo
+  #   image: mongo:4.4.11
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: beny
+  #     MONGO_INITDB_ROOT_PASSWORD: uphold
+  #     MONGO_INITDB_DATABASE: test
+  #   ports:
+  #     - 27017:27017
+  #   volumes:
+  #     - mongodb_data_container:/data/db
+  #   restart: unless-stopped
+  # redis:
+  #   image: "redis:6.2-alpine"
+  #   ports:
+  #     - "6379:6379"
+  #   command: redis-server --save 60 1 --requirepass uphold --loglevel warning
+  #   volumes:
+  #     - redis_data:/data
+  #   restart: always
+# volumes:
+#   mongodb_data_container:
+#   redis_data:
