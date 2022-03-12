@@ -3,6 +3,8 @@ import connect from "./connect";
 import { db } from "./config/config";
 import { getTickerPair, getTickerByCurrency } from "./services/ticker";
 import { getAssets } from "./services/assets";
+import Currency from "./helpers/currency";
+import { existCurrency } from "./validations";
 
 const PORT = process.env.PORT || 3000;
 
@@ -12,9 +14,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, async (): Promise<void> => {
   // tslint:disable-next-line:no-console
   console.log(`server started at http://localhost:${PORT}`);
-
-  // const r = await getTickerPair('BTC-UfeSD');
-  //   console.log('local',r);
-  // const s = await getTickerByCurrency();
-  // console.log('USD',s);
 });

@@ -1,6 +1,7 @@
 import Request from "../helpers/request";
 import RequestOptions from "../types/request-options";
 import RequestResponse from "../types/request-response";
+import { existCurrency } from "../validations";
 
 /**
  * @name getTickerPair
@@ -30,6 +31,9 @@ export const getTickerPair = async (pair: string = "BTC-USD") => {
  */
 
 export const getTickerByCurrency = async (currency: string = "USD") => {
+  if (!existCurrency(currency)) {
+    throw new Error("Currency no exist");
+  }
   let response: RequestResponse;
 
   const options: RequestOptions = {

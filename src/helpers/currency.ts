@@ -8,10 +8,31 @@ const Currency = {
    * @param {RequestOptions} options Request custom object options.
    * @returns {Promise<RequestResponse | Error>} Return promise with the response received or error.
    */
-  getInArray: async (currencies: Array<Object>): Promise<any> => {
-    const resultAssets: RequestResponse = await getAssets();
+  getInArray: async (assets: RequestResponse): Promise<any> => {
+    let response: Array<string>;
 
-    return [];
+    assets.statusCode === 200
+      ? (response = JSON.parse(assets.data).map((e) => e.code))
+      : (response = []);
+
+    return response;
+  },
+
+  checkIfExists: async (currencies: Array<string>, currency?: string) => {
+    let response: boolean;
+
+    currencies.length > 0
+      ? (response = currencies.some((e) => e === currency))
+      : (response = false);
+
+    return response;
+  },
+
+  validate: async (currency: string) => {
+    let array: Array<string> = await Currency.getInArray(await getAssets());
+    let exist: boolean = await Currency.checkIfExists(array, currency);
+
+    return exist;
   },
 };
 
