@@ -1,13 +1,25 @@
-import app from "./app";
-import connect from "./connect";
-import { db } from "./config/config";
+import { getTickerPair } from "./services/ticker";
+import Bot from "./helpers/bot";
 
-const PORT = process.env.PORT || 3000;
+let isFirstTime: boolean = true;
 
-//connect(db);
+// Maybe you can request first time here, but inside interval clean code and we can wait 5seg
+let initialValue: number = 0;
 
-// start the express server
-app.listen(PORT, (): void => {
-  // tslint:disable-next-line:no-console
-  console.log(`server started at http://localhost:${PORT}`);
-});
+// if API was a WebSocket or SSE i won't use a setInterval
+setInterval(async () => {
+  const { data } = await getTickerPair("BTC-USD");
+
+  if (isFirstTime && data) {
+    const initialValueString = JSON.parse(data).ask;
+    initialValue = +initialValueString;
+    isFirstTime = false;
+  } else if (!isFirstTime && data) {
+    const actualValueString: string = JSON.parse(data).ask;
+    const actualValue: number = +actualValueString;
+
+    const diff = Bot.calculateDiff(initialValue, actualValue);
+
+    Bot.writeLog(diff);
+  }
+}, 5000);
