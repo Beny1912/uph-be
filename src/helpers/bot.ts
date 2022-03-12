@@ -22,10 +22,10 @@ const Bot = {
     initialValue: number = 0,
     intervalMilSec: number = 5000,
     percentDiff: number,
-    pair: Array<string>
+    pair: string
   ): void => {
     setInterval(async () => {
-      const { data } = await getTickerPair("BTC-USD");
+      const { data } = await getTickerPair(pair);
 
       if (isFirstTime && data) {
         const initialValueString = JSON.parse(data).ask;

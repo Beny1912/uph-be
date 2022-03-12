@@ -24,4 +24,4 @@ let initialValue: number = 0;
 //   }
 // }, 5000);
 
-Bot.interval(true, 0, 5000, 0.01, ["BTC-USD"]);
+Bot.interval(true, 0, 5000, 0.01, "BTC-USD");
