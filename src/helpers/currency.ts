@@ -5,7 +5,7 @@ const Currency = {
   /**
    * @name getInArray
    * @description Push all currencies in array.
-   * @param {RequestOptions} options Request custom object options.
+   * @param {RequestOptions} assets Request custom object options.
    * @returns {Promise<RequestResponse | Error>} Return promise with the response received or error.
    */
   getInArray: async (assets: RequestResponse): Promise<any> => {
@@ -17,8 +17,14 @@ const Currency = {
 
     return response;
   },
-
-  checkIfExists: async (currencies: Array<string>, currency?: string) => {
+  /**
+   * @name checkIfExists
+   * @description Check if currency exist in array of currencies.
+   * @param {Array<string>} currencies array list of all currencies.
+   *  @param {string} currency Currency to compare.
+   * @returns Bolean Return boolean with result.
+   */
+  checkIfExists: async (currencies: Array<string>, currency: string) => {
     let response: boolean;
 
     currencies.length > 0
@@ -27,6 +33,12 @@ const Currency = {
 
     return response;
   },
+  /**
+   * @name validate
+   * @description validate if currency exist in array of currencies.
+   *  @param {string} currency Currency to compare.
+   * @returns Bolean Return boolean with result.
+   */
 
   validate: async (currency: string) => {
     let array: Array<string> = await Currency.getInArray(await getAssets());
