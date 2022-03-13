@@ -41,6 +41,9 @@ Global npm packages
 [Husky](https://www.npmjs.com/package/husky)
 
 You can install all global packager requirements with this command, assuming that Node is already installed
+
+(Make sure env var BOT=YES)
+
 ```bash
 
 #Windows
@@ -52,6 +55,7 @@ npm i -g eslint tsc jest prettier nodemon husky
 sudo npm i -g eslint tsc jest prettier nodemon husky
 
 ```
+
 You can run this project in dev mode like this:
 
 ```bash
@@ -69,6 +73,8 @@ npm run start-dev
 ### Running with Docker
 
 You can run this project in a docker container, to make easy, we have created a Makefile, assuming that Docker is installed and running in your device run the following
+
+(Make sure env var BOT=YES)
 
 ```bash
 
@@ -101,6 +107,8 @@ make rmi
 
 ### Running project with Docker Compose
 
+(Make sure env var BOT=YES)
+
 ```bash
 
 git clone https://github.com/Beny1912/uph-be.git
@@ -114,6 +122,12 @@ docker-compose up
 docker-compose down
 
 ```
+
+### Run API mode
+
+If you want to connect with a app run this app like a API REST, config env var BOT=NO
+
+(Make sure env var BOT=NO)
 
 ### Postman link
 
