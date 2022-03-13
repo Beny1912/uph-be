@@ -3,6 +3,8 @@ import { getTickerPair, getTickerByCurrency } from "./../services/ticker";
 import { saveBot } from "./../controllers/bot.controller";
 import { IBot } from "../models/bot.model";
 const Bot = {
+  listIntervalPair: [],
+  listIntervalCurrencies: [],
   /**
    * @name calculateDiff
    * @description Calculate difference between initial param and current param.
@@ -148,7 +150,7 @@ const Bot = {
   ): void => {
     // if API was a WebSocket or SSE i won't use a setInterval
     // Create interval
-    setInterval(async () => {
+    let idIntervalPair = setInterval(async () => {
       // Get data of request service ticker
       const { data, statusCode } = await getTickerPair(pair);
       // Check if firstTime and no error in request
@@ -170,12 +172,13 @@ const Bot = {
         Bot.writeLog(diff, percentDiff);
       }
     }, intervalMilSec);
+    Bot.listIntervalPair.push(idIntervalPair);
   },
   /**
    * @name intervalAllTickerByCurrency
    * @description Run all functions of bot with all currencies.
    * @param {number} percentDiff Difference in percent
-   * @param {string} pair name of pair
+   * @param {string} currency name of pair
    * @param {boolean} isFirstTime helper to check first time
    * @param {number} initialValue initialValue of ask
    * @param {number} intervalMilSec Miliseconds of interval
@@ -190,7 +193,7 @@ const Bot = {
   ): void => {
     // if API was a WebSocket or SSE i won't use a setInterval
     // Create Interval
-    setInterval(async () => {
+    let idIntervalCurrencies = setInterval(async () => {
       // Get data of service tickerByCurrency
       const { data, statusCode } = await getTickerByCurrency(currency);
       // Check if firstTime and no error in request
@@ -216,6 +219,54 @@ const Bot = {
         });
       }
     }, intervalMilSec);
+    Bot.listIntervalCurrencies.push(idIntervalCurrencies);
+  },
+  /**
+   * @name cleanIntervalPair
+   * @description Clear intervalPair opened.
+   * @param {number} intervalPair id interval
+   * @returns {void} Eject.
+   */
+
+  cleanIntervalPair: (intervalPair?: number): Promise<void> => {
+    return new Promise<void>((resolve, reject) => {
+      try {
+        if (intervalPair) {
+          Bot.listIntervalPair.map((e) => {
+            if (e === intervalPair) clearInterval(e);
+          });
+          resolve();
+        } else {
+          Bot.listIntervalPair.map((e) => clearInterval(e));
+          resolve();
+        }
+      } catch (e) {
+        reject(e);
+      }
+    });
+  },
+  /**
+   * @name cleanIntervalCurrencies
+   * @description Clear intervalCurrency opened.
+   * @param {number} intervalCurrency id interval
+   * @returns {void} Eject.
+   */
+  cleanIntervalCurrencies: (intervalCurrency?: number): Promise<void> => {
+    return new Promise<void>((resolve, reject) => {
+      try {
+        if (intervalCurrency) {
+          Bot.listIntervalCurrencies.map((e) => {
+            if (e === intervalCurrency) clearInterval(e);
+          });
+          resolve();
+        } else {
+          Bot.listIntervalCurrencies.map((e) => clearInterval(e));
+          resolve();
+        }
+      } catch (e) {
+        reject(e);
+      }
+    });
   },
 };
 
