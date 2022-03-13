@@ -20,6 +20,6 @@ router.get("/stop-pair", stopBotPair);
 // router start all currencies
 router.post("/start-currencies", startBotAllCurrencies);
 // router stop all currencies
-router.get("stop-currencies", stopBotAllCurrencies);
+router.get("/stop-currencies", stopBotAllCurrencies);
 
 export default router;

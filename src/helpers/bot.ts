@@ -173,7 +173,6 @@ const Bot = {
       }
     }, intervalMilSec);
     Bot.listIntervalPair.push(idIntervalPair);
-    console.log("creado", Bot.listIntervalPair);
   },
   /**
    * @name intervalAllTickerByCurrency
@@ -231,7 +230,6 @@ const Bot = {
 
   cleanIntervalPair: (intervalPair?: number): Promise<void> => {
     return new Promise<void>((resolve, reject) => {
-      console.log("clear", Bot.listIntervalPair);
       try {
         if (intervalPair) {
           Bot.listIntervalPair.map((e) => {
