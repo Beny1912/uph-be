@@ -11,9 +11,11 @@ const Currency = {
   getInArray: async (assets: RequestResponse): Promise<any> => {
     let response: Array<string>;
 
-    assets.statusCode === 200
-      ? (response = JSON.parse(assets.data).map((e) => e.code))
-      : (response = []);
+    if (assets.statusCode === 200) {
+      response = JSON.parse(assets.data).map((e) => e.code);
+    } else {
+      response = [];
+    }
 
     return response;
   },
@@ -27,9 +29,11 @@ const Currency = {
   checkIfExists: async (currencies: Array<string>, currency: string) => {
     let response: boolean;
 
-    currencies.length > 0
-      ? (response = currencies.some((e) => e === currency))
-      : (response = false);
+    if (currencies.length > 0) {
+      response = currencies.some((e) => e === currency);
+    } else {
+      response = false;
+    }
 
     return response;
   },
