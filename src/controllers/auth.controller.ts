@@ -10,7 +10,7 @@ export const signup = async (req: Request, res: Response) => {
   if (error) return res.status(400).json({ message: error.message });
 
   // Email Validation
-  const emailExists = await User.findOne({ email: req.body.email });
+  const emailExists = await User.findOne({ email: req.body.email.toString() });
   if (emailExists)
     return res.status(400).json({ message: "Email already exists" });
 
@@ -33,7 +33,6 @@ export const signup = async (req: Request, res: Response) => {
     );
     //No show password in response
     delete savedUser.password;
-    // res.header('auth-token', token).json(token);
     res.header("auth-token", token).json(savedUser);
   } catch (e) {
     res.status(400).json(e);
@@ -46,7 +45,7 @@ export const signin = async (req: Request, res: Response) => {
   // Response error if validate ko
   if (error) return res.status(400).json({ message: error.message });
   // Validate email registered
-  const user = await User.findOne({ email: req.body.email });
+  const user = await User.findOne({ email: req.body.email.toString() });
   // Response error no registered
   if (!user)
     return res.status(400).json({ message: "Email or Password is wrong" });
