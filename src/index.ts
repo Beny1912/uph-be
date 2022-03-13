@@ -1,6 +1,12 @@
 import Bot from "./helpers/bot";
 import connect from "./connect";
 import { db } from "./config/config";
+import path from "path";
+import Environment from "./helpers/tools/environment";
+
+Environment.config({
+  path: path.join(__dirname, "../.env"),
+});
 
 connect(db);
 
