@@ -1,0 +1,247 @@
+{
+  "info": {
+    "_postman_id": "c0122727-8460-46ca-b7e7-e7863c4b12cb",
+    "name": "Uphold",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "API",
+      "item": [
+        {
+          "name": "Me",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "beny.reading@gmail.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "Polencito1$",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.uphold.com/v0/me",
+              "protocol": "https",
+              "host": ["api", "uphold", "com"],
+              "path": ["v0", "me"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Authentication Methods",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "beny.developers@gmail.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "Polencito1$",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.uphold.com/v0/me/authentication_methods",
+              "protocol": "https",
+              "host": ["api", "uphold", "com"],
+              "path": ["v0", "me", "authentication_methods"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Tickers One Pair",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.uphold.com/v0/ticker/BTC-USD",
+              "protocol": "https",
+              "host": ["api", "uphold", "com"],
+              "path": ["v0", "ticker", "BTC-USD"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Assets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.uphold.com/v0/ticker/BTC-USD",
+              "protocol": "https",
+              "host": ["api", "uphold", "com"],
+              "path": ["v0", "ticker", "BTC-USD"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Local",
+      "item": [
+        {
+          "name": "Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{HOST}}:{{PORT}}/health",
+              "host": ["{{HOST}}"],
+              "port": "{{PORT}}",
+              "path": ["health"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Stop Pair",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{HOST}}:{{PORT}}/stop-pair",
+              "host": ["{{HOST}}"],
+              "port": "{{PORT}}",
+              "path": ["stop-pair"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Start Pair",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{HOST}}:{{PORT}}/start-pair",
+              "host": ["{{HOST}}"],
+              "port": "{{PORT}}",
+              "path": ["start-pair"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Start Currency",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{HOST}}:{{PORT}}/start-currencies",
+              "host": ["{{HOST}}"],
+              "port": "{{PORT}}",
+              "path": ["start-currencies"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Stop Currencies",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{HOST}}:{{PORT}}/stop-currencies",
+              "host": ["{{HOST}}"],
+              "port": "{{PORT}}",
+              "path": ["stop-currencies"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signin",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\":\"beny@beny.com\",\n    \"password\":\"benito\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://{{HOST}}:{{PORT}}/signin",
+              "protocol": "http",
+              "host": ["{{HOST}}"],
+              "port": "{{PORT}}",
+              "path": ["signin"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\":\"beny\",\n    \"email\":\"beny@beny.com\",\n    \"password\":\"benito\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://{{HOST}}:{{PORT}}/signup",
+              "protocol": "http",
+              "host": ["{{HOST}}"],
+              "port": "{{PORT}}",
+              "path": ["signup"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Profile",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\":\"beny\",\n    \"email\":\"beny@beny.com\",\n    \"password\":\"benito\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://{{HOST}}:{{PORT}}/signup",
+              "protocol": "http",
+              "host": ["{{HOST}}"],
+              "port": "{{PORT}}",
+              "path": ["signup"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
