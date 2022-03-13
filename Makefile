@@ -8,6 +8,8 @@ start:
 	docker start bot-beny
 rm:
 	docker rm bot-beny
+rmi:
+	docker rmi bot-beny
 exec:
 	docker exec -it bot-beny sh
 show-txt:
