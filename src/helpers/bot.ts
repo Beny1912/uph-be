@@ -3,9 +3,23 @@ import { getTickerPair, getTickerByCurrency } from "./../services/ticker";
 import { saveBot } from "./../controllers/bot.controller";
 import { IBot } from "../models/bot.model";
 const Bot = {
+  /**
+   * @name calculateDiff
+   * @description Calculate difference between initial param and current param.
+   * @param {number} initial
+   * @param {number} current
+   * @returns {number} Return result percent difference.
+   */
   calculateDiff: (initial: number, current: number): number => {
     return (100 * (initial - current)) / ((initial + current) / 2);
   },
+  /**
+   * @name writeLog
+   * @description Write in log file difference between initial and current param.
+   * @param {number} diff Difference in percent
+   * @param {number} percentDiff Value rate limit
+   * @returns {void} End when write file.
+   */
   writeLog: (diff: number, percentDiff: number): void => {
     if (diff < -percentDiff) {
       File.appendFile(
@@ -19,6 +33,14 @@ const Bot = {
       );
     }
   },
+  /**
+   * @name writeLogAll
+   * @description Write in log file difference between initial and current param.
+   * @param {number} diff Difference in percent
+   * @param {number} percentDiff Value rate limit
+   * @param {object} actual Object with all params (ask,bid,currency,pair)
+   * @returns {void} End when write file.
+   */
   writeLogAll: (diff: number, percentDiff: number, actual: object): void => {
     if (diff < -percentDiff) {
       File.appendFile(
@@ -36,6 +58,15 @@ const Bot = {
       );
     }
   },
+  /**
+   * @name writeLogAllAndDB
+   * @description Write in log and DB file difference between initial and current param.
+   * @param {number} diff Difference in percent
+   * @param {number} percentDiff Value rate limit
+   * @param {object} initial Object with all initial params (ask,bid,currency,pair)
+   * @param {object} actual Object with all current params (ask,bid,currency,pair)
+   * @returns {void} End when write data in database.
+   */
   writeLogAllAndDB: (
     diff: number,
     percentDiff: number,
@@ -87,6 +118,16 @@ const Bot = {
       saveBot(newBot);
     }
   },
+  /**
+   * @name interval
+   * @description Run all functions of bot just one pair in arguments.
+   * @param {number} percentDiff Difference in percent
+   * @param {string} pair name of pair
+   * @param {boolean} isFirstTime helper to check first time
+   * @param {number} initialValue initialValue of ask
+   * @param {number} intervalMilSec Miliseconds of interval
+   * @returns {void} Run all functions of bot.
+   */
   interval: (
     percentDiff: number,
     pair: string,
@@ -112,6 +153,16 @@ const Bot = {
       }
     }, intervalMilSec);
   },
+  /**
+   * @name intervalAllTickerByCurrency
+   * @description Run all functions of bot with all currencies.
+   * @param {number} percentDiff Difference in percent
+   * @param {string} pair name of pair
+   * @param {boolean} isFirstTime helper to check first time
+   * @param {number} initialValue initialValue of ask
+   * @param {number} intervalMilSec Miliseconds of interval
+   * @returns {void} Run all functions of bot.
+   */
   intervalAllTickerByCurrency: (
     percentDiff: number,
     currency: string,
