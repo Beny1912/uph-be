@@ -6,8 +6,7 @@ export const saveBot = async (bot: IBot) => {
   if (error) throw new Error(error.details[0].message);
 
   try {
-    const result = await Bot.create(bot);
-    return result;
+    return await Bot.create(bot);
   } catch (e) {
     throw new Error(e);
   }
