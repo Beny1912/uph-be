@@ -4,10 +4,11 @@ import { db } from "./config/config";
 import path from "path";
 import Environment from "./helpers/tools/environment";
 
+//Config Env
 Environment.config({
   path: path.join(__dirname, "../.env"),
 });
-
+//Connect Database
 connect(db);
 
 // if API was a WebSocket or SSE i won't use a setInterval
