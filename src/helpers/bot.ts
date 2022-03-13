@@ -173,6 +173,7 @@ const Bot = {
       }
     }, intervalMilSec);
     Bot.listIntervalPair.push(idIntervalPair);
+    console.log("creado", Bot.listIntervalPair);
   },
   /**
    * @name intervalAllTickerByCurrency
@@ -228,12 +229,23 @@ const Bot = {
    * @returns {void} Eject.
    */
 
-  cleanIntervalPair: (intervalPair?: number): void => {
-    if (intervalPair)
-      Bot.listIntervalPair.map((e) => {
-        if (e === intervalPair) clearInterval(e);
-      });
-    else Bot.listIntervalPair.map((e) => clearInterval(e));
+  cleanIntervalPair: (intervalPair?: number): Promise<void> => {
+    return new Promise<void>((resolve, reject) => {
+      console.log("clear", Bot.listIntervalPair);
+      try {
+        if (intervalPair) {
+          Bot.listIntervalPair.map((e) => {
+            if (e === intervalPair) clearInterval(e);
+          });
+          resolve();
+        } else {
+          Bot.listIntervalPair.map((e) => clearInterval(e));
+          resolve();
+        }
+      } catch (e) {
+        reject(e);
+      }
+    });
   },
   /**
    * @name cleanIntervalCurrencies
@@ -241,12 +253,22 @@ const Bot = {
    * @param {number} intervalCurrency id interval
    * @returns {void} Eject.
    */
-  cleanIntervalCurrencies: (intervalCurrency?: number): void => {
-    if (intervalCurrency)
-      Bot.listIntervalCurrencies.map((e) => {
-        if (e === intervalCurrency) clearInterval(e);
-      });
-    else Bot.listIntervalCurrencies.map((e) => clearInterval(e));
+  cleanIntervalCurrencies: (intervalCurrency?: number): Promise<void> => {
+    return new Promise<void>((resolve, reject) => {
+      try {
+        if (intervalCurrency) {
+          Bot.listIntervalCurrencies.map((e) => {
+            if (e === intervalCurrency) clearInterval(e);
+          });
+          resolve();
+        } else {
+          Bot.listIntervalCurrencies.map((e) => clearInterval(e));
+          resolve();
+        }
+      } catch (e) {
+        reject(e);
+      }
+    });
   },
 };
 

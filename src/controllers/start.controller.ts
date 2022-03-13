@@ -49,11 +49,11 @@ export const startBotAllCurrencies = async (req: Request, res: Response) => {
 };
 
 export const stopBotPair = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const { id } = req.query;
 
   try {
-    if (id) Bot.cleanIntervalPair(+id);
-    else Bot.cleanIntervalPair();
+    if (id) await Bot.cleanIntervalPair(+id);
+    else await Bot.cleanIntervalPair();
     res.status(200).send({ message: "Stop Bot pair" });
   } catch (e) {
     res.status(400).json(e);
@@ -61,11 +61,11 @@ export const stopBotPair = async (req: Request, res: Response) => {
 };
 
 export const stopBotAllCurrencies = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const { id } = req.query;
 
   try {
-    if (id) Bot.cleanIntervalCurrencies(+id);
-    else Bot.cleanIntervalCurrencies();
+    if (id) await Bot.cleanIntervalCurrencies(+id);
+    else await Bot.cleanIntervalCurrencies();
     res.status(200).send({ message: "Stop Bot currency" });
   } catch (e) {
     res.status(400).json(e);

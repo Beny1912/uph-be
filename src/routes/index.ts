@@ -16,7 +16,7 @@ router.get("/health", (req: Request, res: Response, next: Function): void => {
 // router start pair
 router.post("/start-pair", startBotPair);
 // route stop pair
-router.get("/start-currencies", stopBotPair);
+router.get("/stop-pair", stopBotPair);
 // router start all currencies
 router.post("/start-currencies", startBotAllCurrencies);
 // router stop all currencies
