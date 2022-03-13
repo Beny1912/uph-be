@@ -232,12 +232,12 @@ const Bot = {
     return new Promise<void>((resolve, reject) => {
       try {
         if (intervalPair) {
-          Bot.listIntervalPair.map((e) => {
+          Bot.listIntervalPair.forEach((e) => {
             if (e === intervalPair) clearInterval(e);
           });
           resolve();
         } else {
-          Bot.listIntervalPair.map((e) => clearInterval(e));
+          Bot.listIntervalPair.forEach((e) => clearInterval(e));
           resolve();
         }
       } catch (e) {
@@ -255,12 +255,12 @@ const Bot = {
     return new Promise<void>((resolve, reject) => {
       try {
         if (intervalCurrency) {
-          Bot.listIntervalCurrencies.map((e) => {
+          Bot.listIntervalCurrencies.forEach((e) => {
             if (e === intervalCurrency) clearInterval(e);
           });
           resolve();
         } else {
-          Bot.listIntervalCurrencies.map((e) => clearInterval(e));
+          Bot.listIntervalCurrencies.forEach((e) => clearInterval(e));
           resolve();
         }
       } catch (e) {
