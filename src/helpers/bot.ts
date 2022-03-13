@@ -175,7 +175,7 @@ const Bot = {
    * @name intervalAllTickerByCurrency
    * @description Run all functions of bot with all currencies.
    * @param {number} percentDiff Difference in percent
-   * @param {string} pair name of pair
+   * @param {string} currency name of pair
    * @param {boolean} isFirstTime helper to check first time
    * @param {number} initialValue initialValue of ask
    * @param {number} intervalMilSec Miliseconds of interval
