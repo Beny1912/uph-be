@@ -12,6 +12,7 @@ const Currency = {
     let response: Array<string>;
 
     if (assets.statusCode === 200) {
+      // Generate array with all code currencies
       response = JSON.parse(assets.data).map((e) => e.code);
     } else {
       response = [];
@@ -30,6 +31,7 @@ const Currency = {
     let response: boolean;
 
     if (currencies.length > 0) {
+      // Check if exists currency in array with all currencies
       response = currencies.some((e) => e === currency);
     } else {
       response = false;

@@ -10,6 +10,7 @@ const File = {
    */
   appendFile: async (path: string, data: string): Promise<void> => {
     try {
+      //Write data in file and no overwritten
       fs.writeFileSync(path, data + "\n", { flag: "a" });
     } catch (error) {
       throw new Error("Error Append File: " + error);

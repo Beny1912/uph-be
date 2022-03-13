@@ -11,9 +11,12 @@ export default {
   config: (options?: DotenvConfigOptions) =>
     new Promise((resolve, reject) => {
       try {
+        //Add config to dotenv
         dotenv.config(options);
+        // Resolve promise
         resolve("");
       } catch (err) {
+        // Reject with error
         reject(err);
       }
     }),

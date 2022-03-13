@@ -11,6 +11,7 @@ const Bot = {
    * @returns {number} Return result percent difference.
    */
   calculateDiff: (initial: number, current: number): number => {
+    //Calculate Diff in percent
     return (100 * (initial - current)) / ((initial + current) / 2);
   },
   /**
@@ -21,12 +22,15 @@ const Bot = {
    * @returns {void} End when write file.
    */
   writeLog: (diff: number, percentDiff: number): void => {
+    // Check percent diff
     if (diff < -percentDiff) {
+      // Write in file
       File.appendFile(
         "./logs.txt",
         `[Decreasing] Ask < -${percentDiff}% on time: ${new Date().toLocaleString()}`
       );
     } else if (diff > percentDiff) {
+      // Write in file
       File.appendFile(
         "./logs.txt",
         `[Increasing] Ask > +${percentDiff}% on time: ${new Date().toLocaleString()}`
@@ -42,7 +46,9 @@ const Bot = {
    * @returns {void} End when write file.
    */
   writeLogAll: (diff: number, percentDiff: number, actual: object): void => {
+    // Check percent diff
     if (diff < -percentDiff) {
+      // Write in file
       File.appendFile(
         "./logs.txt",
         ` [Decreasing] Pair ${
@@ -50,6 +56,7 @@ const Bot = {
         } Ask < -${percentDiff}% on time: ${new Date().toLocaleString()}`
       );
     } else if (diff > percentDiff) {
+      // Write in file
       File.appendFile(
         "./logs.txt",
         `[Increasing] Pair ${
@@ -73,14 +80,16 @@ const Bot = {
     initial: object,
     actual: object
   ): void => {
+    // Check percent diff
     if (diff < -percentDiff) {
+      // Write in file
       File.appendFile(
         "./logs.txt",
         ` [Decreasing] Pair ${
           actual["pair"]
         } Ask < -${percentDiff}% on time: ${new Date().toLocaleString()}`
       );
-
+      // Create object Bot to save in DB
       const newBot: IBot = {
         initialAsk: +initial["ask"],
         ask: +actual["ask"],
@@ -93,15 +102,17 @@ const Bot = {
         diffPercent: percentDiff,
         type: "Decreasing",
       };
-
+      // Save in db
       saveBot(newBot);
     } else if (diff > percentDiff) {
+      // Write in file
       File.appendFile(
         "./logs.txt",
         `[Increasing] Pair ${
           actual["pair"]
         } Ask > +${percentDiff}% on time: ${new Date().toLocaleString()}`
       );
+      // Create object Bot to save in DB
       const newBot: IBot = {
         initialAsk: +initial["ask"],
         ask: +actual["ask"],
@@ -114,7 +125,7 @@ const Bot = {
         diffPercent: percentDiff,
         type: "Increasing",
       };
-
+      // Save in db
       saveBot(newBot);
     }
   },
@@ -136,19 +147,26 @@ const Bot = {
     intervalMilSec: number = 5000
   ): void => {
     // if API was a WebSocket or SSE i won't use a setInterval
+    // Create interval
     setInterval(async () => {
-      const { data } = await getTickerPair(pair);
-
-      if (isFirstTime && data) {
+      // Get data of request service ticker
+      const { data, statusCode } = await getTickerPair(pair);
+      // Check if firstTime and no error in request
+      if (isFirstTime && statusCode === 200) {
+        // Save first value of ask
         const initialValueString = JSON.parse(data).ask;
+        // Convert string to number
         initialValue = +initialValueString;
+        // helper firstTime to false
         isFirstTime = false;
-      } else if (!isFirstTime && data) {
+      } else if (!isFirstTime && statusCode === 200) {
+        // Save current ask in var
         const actualValueString: string = JSON.parse(data).ask;
+        // Convert string to false
         const actualValue: number = +actualValueString;
-
+        // Calculate diff
         const diff = Bot.calculateDiff(initialValue, actualValue);
-
+        // Write log
         Bot.writeLog(diff, percentDiff);
       }
     }, intervalMilSec);
@@ -171,20 +189,27 @@ const Bot = {
     intervalMilSec: number = 5000
   ): void => {
     // if API was a WebSocket or SSE i won't use a setInterval
+    // Create Interval
     setInterval(async () => {
-      const { data } = await getTickerByCurrency(currency);
-
-      if (isFirstTime && data) {
+      // Get data of service tickerByCurrency
+      const { data, statusCode } = await getTickerByCurrency(currency);
+      // Check if firstTime and no error in request
+      if (isFirstTime && statusCode === 200) {
+        // Save first value
         initialValue = JSON.parse(data);
+        // helper firsTime to false
         isFirstTime = false;
-      } else if (!isFirstTime && data) {
+      } else if (!isFirstTime && statusCode === 200) {
+        // Save actual value
         let actualValue = JSON.parse(data);
-
+        // Loop to check difference between initial and current values
         initialValue.map((i) => {
           actualValue.map((a) => {
+            // if pair name is same
             if (i["pair"] === a["pair"]) {
               //check diff
               const diff = Bot.calculateDiff(+i["ask"], +a["ask"]);
+              // Write log and DB
               Bot.writeLogAllAndDB(diff, percentDiff, i, a);
             }
           });
