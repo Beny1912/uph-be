@@ -2,30 +2,6 @@
 
 ## Setup
 
-### Postman link
-
-[Postman link](https://www.getpostman.com/collections/ccc123e235b5ea5b1103)
-
-You need to configure the next Environment Vars: HOST, PORT, TOKEN (should be obtained with signin endpoint)
-
-### Postman file
-
-[Postman file](Uphold.postman_collection.json)
-
-You need to configure the next Environment Vars: HOST, PORT, TOKEN (should be obtained with signin endpoint)
-
-### Run project
-
-```bash
-
-git clone https://github.com/Beny1912/uph-be.git
-
-cd uph-be
-
-docker-compose up
-
-```
-
 ### Run test
 
 ```bash
@@ -48,7 +24,7 @@ Global requirements:
 
 [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
-[MongoDB](https://www.mongodb.com/es)
+[MongoDB](https://www.mongodb.com/es) (Only if you want run a local database without docker)
 
 Global npm packages
 
@@ -64,6 +40,20 @@ Global npm packages
 
 [Husky](https://www.npmjs.com/package/husky)
 
+You can install all global packager requirements with this command, assuming that Node is already installed
+```bash
+
+#Windows
+
+npm i -g eslint tsc jest prettier nodemon husky
+
+#Mac & Linux
+
+sudo npm i -g eslint tsc jest prettier nodemon husky
+
+```
+You can run this project in dev mode like this:
+
 ```bash
 
 git clone https://github.com/Beny1912/uph-be.git
@@ -75,6 +65,67 @@ npm i
 npm run start-dev
 
 ```
+
+### Running with Docker
+
+You can run this project in a docker container, to make easy, we have created a Makefile, assuming that Docker is installed and running in your device run the following
+
+```bash
+
+git clone https://github.com/Beny1912/uph-be.git
+
+cd uph-be
+
+#Command to build project into a docker image
+make build
+
+#Command to run in a container the docker image created on the last step
+make run
+
+#Command to watch the log file inside docker image
+make show-txt
+
+#When you need stop de image
+make stop
+
+#When you need restart the container again
+make start
+
+#If you need delete the container
+make rm
+
+#If you need delete the image
+make rmi
+
+```
+
+### Running project with Docker Compose
+
+```bash
+
+git clone https://github.com/Beny1912/uph-be.git
+
+cd uph-be
+
+#To Start
+docker-compose up
+
+#To stop
+docker-compose down
+
+```
+
+### Postman link
+
+[Postman link](https://www.getpostman.com/collections/ccc123e235b5ea5b1103)
+
+You need to configure the next Environment Vars: HOST, PORT, TOKEN (should be obtained with signin endpoint)
+
+### Postman file
+
+[Postman file](Uphold.postman_collection.json)
+
+You need to configure the next Environment Vars: HOST, PORT, TOKEN (should be obtained with signin endpoint)
 
 ## Assessment Challenge
 
