@@ -30,6 +30,11 @@ const Https = {
         cert,
         agent,
       } = options;
+      const white_list = ["api.uphold.com", "www.uphold.com"];
+      const url = new URL(`https://${hostname}`);
+      const remote_hostname = url.hostname;
+      if (!white_list.includes(remote_hostname))
+        reject(new Error("Url is not in whitelist"));
       const req: ClientRequest = https.request(
         {
           hostname,
