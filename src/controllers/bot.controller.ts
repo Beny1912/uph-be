@@ -7,10 +7,8 @@ export const saveBot = async (bot: IBot) => {
 
   try {
     const result = await Bot.create(bot);
-    console.log(result);
     return;
-  } catch (error) {
-    console.log(error);
-    throw new Error(error);
+  } catch (e) {
+    throw new Error(e);
   }
 };

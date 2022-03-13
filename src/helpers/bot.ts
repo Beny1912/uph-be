@@ -88,11 +88,11 @@ const Bot = {
     }
   },
   interval: (
+    percentDiff: number,
+    pair: string,
     isFirstTime: boolean = true,
     initialValue: number = 0,
-    intervalMilSec: number = 5000,
-    percentDiff: number,
-    pair: string
+    intervalMilSec: number = 5000
   ): void => {
     // if API was a WebSocket or SSE i won't use a setInterval
     setInterval(async () => {
@@ -113,11 +113,11 @@ const Bot = {
     }, intervalMilSec);
   },
   intervalAllTickerByCurrency: (
+    percentDiff: number,
+    currency: string,
     isFirstTime: boolean = true,
     initialValue: [] = [],
-    intervalMilSec: number = 5000,
-    percentDiff: number,
-    currency: string
+    intervalMilSec: number = 5000
   ): void => {
     // if API was a WebSocket or SSE i won't use a setInterval
     setInterval(async () => {
