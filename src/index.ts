@@ -14,7 +14,15 @@ connect(db);
 
 if (process.env.BOT === "YES") {
   // if API was a WebSocket or SSE i won't use a setInterval
-  Bot.intervalAllTickerByCurrency(0.01, "USD", true, [], 5000);
+  Bot.intervalAllTickerByCurrency(0.01, "USD", true, [], 5000)
+    .then((): void => {
+      // tslint:disable-next-line:no-console
+      console.log("All currency bot running");
+    })
+    .catch((e): void => {
+      // tslint:disable-next-line:no-console
+      console.log(`All currency bot error: ${e}`);
+    });
 } else {
   const PORT = process.env.PORT || 3000;
   // start the express server

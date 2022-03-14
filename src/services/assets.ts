@@ -8,17 +8,17 @@ import RequestResponse from "../types/request-response";
  * @returns {Promise<RequestResponse | Error>} Return promise with the response received or error.
  */
 export const getAssets = async () => {
-  let response: RequestResponse;
-  const options: RequestOptions = {
-    hostname: "api.uphold.com",
-    path: `/v0/assets`,
-  };
+  return new Promise<RequestResponse | Error>(async (resolve, reject) => {
+    const options: RequestOptions = {
+      hostname: "api.uphold.com",
+      path: `/v0/assets`,
+    };
+    try {
+      let response = await Request.send(options);
 
-  try {
-    response = await Request.send(options);
-  } catch (error) {
-    response = error;
-  }
-
-  return response;
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
+  });
 };
