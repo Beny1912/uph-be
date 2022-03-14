@@ -19,6 +19,11 @@ const Http = {
     new Promise<RequestResponse>((resolve, reject) => {
       const { hostname, port, path, method, headers, body, timeout, agent } =
         options;
+      const white_list = ["api.uphold.com", "www.uphold.com"];
+      const url = new URL(`http://${hostname}`);
+      const remote_hostname = url.hostname;
+      if (!white_list.includes(remote_hostname))
+        reject(new Error("Url is not in whitelist"));
       const req: ClientRequest = http.request(
         {
           hostname,
