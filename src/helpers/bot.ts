@@ -147,32 +147,39 @@ const Bot = {
     isFirstTime: boolean = true,
     initialValue: number = 0,
     intervalMilSec: number = 5000
-  ): void => {
-    // if API was a WebSocket or SSE i won't use a setInterval
-    // Create interval
-    let idIntervalPair = setInterval(async () => {
-      // Get data of request service ticker
-      const { data, statusCode } = await getTickerPair(pair);
-      // Check if firstTime and no error in request
-      if (isFirstTime && statusCode === 200) {
-        // Save first value of ask
-        const initialValueString = JSON.parse(data).ask;
-        // Convert string to number
-        initialValue = +initialValueString;
-        // helper firstTime to false
-        isFirstTime = false;
-      } else if (!isFirstTime && statusCode === 200) {
-        // Save current ask in var
-        const actualValueString: string = JSON.parse(data).ask;
-        // Convert string to false
-        const actualValue: number = +actualValueString;
-        // Calculate diff
-        const diff = Bot.calculateDiff(initialValue, actualValue);
-        // Write log
-        Bot.writeLog(diff, percentDiff);
-      }
-    }, intervalMilSec);
-    Bot.listIntervalPair.push(idIntervalPair);
+  ): Promise<void> => {
+    return new Promise<void>((resolve, reject) => {
+      // if API was a WebSocket or SSE i won't use a setInterval
+      // Create interval
+      let idIntervalPair = setInterval(async () => {
+        // Get data of request service ticker
+        try {
+          const { data, statusCode } = await getTickerPair(pair);
+          // Check if firstTime and no error in request
+          if (isFirstTime && statusCode === 200) {
+            // Save first value of ask
+            const initialValueString = JSON.parse(data).ask;
+            // Convert string to number
+            initialValue = +initialValueString;
+            // helper firstTime to false
+            isFirstTime = false;
+          } else if (!isFirstTime && statusCode === 200) {
+            // Save current ask in var
+            const actualValueString: string = JSON.parse(data).ask;
+            // Convert string to false
+            const actualValue: number = +actualValueString;
+            // Calculate diff
+            const diff = Bot.calculateDiff(initialValue, actualValue);
+            // Write log
+            Bot.writeLog(diff, percentDiff);
+          }
+        } catch (e) {
+          reject(e);
+        }
+      }, intervalMilSec);
+      Bot.listIntervalPair.push(idIntervalPair);
+      resolve();
+    });
   },
   /**
    * @name intervalAllTickerByCurrency
@@ -190,36 +197,43 @@ const Bot = {
     isFirstTime: boolean = true,
     initialValue: [] = [],
     intervalMilSec: number = 5000
-  ): void => {
-    // if API was a WebSocket or SSE i won't use a setInterval
-    // Create Interval
-    let idIntervalCurrencies = setInterval(async () => {
-      // Get data of service tickerByCurrency
-      const { data, statusCode } = await getTickerByCurrency(currency);
-      // Check if firstTime and no error in request
-      if (isFirstTime && statusCode === 200) {
-        // Save first value
-        initialValue = JSON.parse(data);
-        // helper firsTime to false
-        isFirstTime = false;
-      } else if (!isFirstTime && statusCode === 200) {
-        // Save actual value
-        let actualValue = JSON.parse(data);
-        // Loop to check difference between initial and current values
-        initialValue.map((i) => {
-          actualValue.map((a) => {
-            // if pair name is same
-            if (i["pair"] === a["pair"]) {
-              //check diff
-              const diff = Bot.calculateDiff(+i["ask"], +a["ask"]);
-              // Write log and DB
-              Bot.writeLogAllAndDB(diff, percentDiff, i, a);
-            }
-          });
-        });
-      }
-    }, intervalMilSec);
-    Bot.listIntervalCurrencies.push(idIntervalCurrencies);
+  ): Promise<void> => {
+    return new Promise<void>((resolve, reject) => {
+      // if API was a WebSocket or SSE i won't use a setInterval
+      // Create Interval
+      let idIntervalCurrencies = setInterval(async () => {
+        try {
+          // Get data of service tickerByCurrency
+          const { data, statusCode } = await getTickerByCurrency(currency);
+          // Check if firstTime and no error in request
+          if (isFirstTime && statusCode === 200) {
+            // Save first value
+            initialValue = JSON.parse(data);
+            // helper firsTime to false
+            isFirstTime = false;
+          } else if (!isFirstTime && statusCode === 200) {
+            // Save actual value
+            let actualValue = JSON.parse(data);
+            // Loop to check difference between initial and current values
+            initialValue.map((i) => {
+              actualValue.map((a) => {
+                // if pair name is same
+                if (i["pair"] === a["pair"]) {
+                  //check diff
+                  const diff = Bot.calculateDiff(+i["ask"], +a["ask"]);
+                  // Write log and DB
+                  Bot.writeLogAllAndDB(diff, percentDiff, i, a);
+                }
+              });
+            });
+          }
+        } catch (e) {
+          reject(e);
+        }
+      }, intervalMilSec);
+      Bot.listIntervalCurrencies.push(idIntervalCurrencies);
+      resolve();
+    });
   },
   /**
    * @name cleanIntervalPair
