@@ -6,7 +6,7 @@
   "bin": "./dist/index.js",
   "scripts": {
     "prestart": "node ./npm-scripts/prestart.js pro && npm i",
-    "start": "npm run build && node ./dist/index.js",
+    "start": "node ./dist/index.js",
     "start-dev": "node ./npm-scripts/prestart.js dev && nodemon ./src/index.ts",
     "start-pro": "node ./npm-scripts/prestart.js pro && nodemon ./src/index.ts",
     "build": "node ./npm-scripts/prestart.js pro && tsc --skipLibCheck",

@@ -1,0 +1,11 @@
+import { IBot } from "../models/bot.model";
+import Joi from "joi";
+import BotPair from "../types/bot-pair-request";
+import BotCurrency from "../types/bot-currency-request";
+import { IUser } from "../models/user.model";
+export declare const existCurrency: (currency: string) => Promise<boolean>;
+export declare const botValidation: (data: IBot) => Joi.ValidationResult<any>;
+export declare const pairValidation: (data: BotPair) => Joi.ValidationResult<any>;
+export declare const currencyValidation: (data: BotCurrency) => Joi.ValidationResult<any>;
+export declare const signupValidation: (data: IUser) => Joi.ValidationResult<any>;
+export declare const signinValidation: (data: IUser) => Joi.ValidationResult<any>;
