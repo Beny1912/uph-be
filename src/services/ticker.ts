@@ -10,18 +10,19 @@ import { existCurrency } from "../validations";
  * @returns {Promise<RequestResponse | Error>} Return promise with the response received or error.
  */
 export const getTickerPair = async (pair: string = "BTC-USD") => {
-  let response: RequestResponse;
-  const options: RequestOptions = {
-    hostname: "api.uphold.com",
-    path: `/v0/ticker/${pair}`,
-  };
-  try {
-    response = await Request.send(options);
-  } catch (error) {
-    response = error;
-  }
-
-  return response;
+  return new Promise<RequestResponse>(async (resolve, reject) => {
+    let response: RequestResponse;
+    const options: RequestOptions = {
+      hostname: "api.uphold.com",
+      path: `/v0/ticker/${pair}`,
+    };
+    try {
+      response = await Request.send(options);
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
+  });
 };
 /**
  * @name getTickerByCurrency
@@ -31,21 +32,21 @@ export const getTickerPair = async (pair: string = "BTC-USD") => {
  */
 
 export const getTickerByCurrency = async (currency: string = "USD") => {
-  if (!existCurrency(currency)) {
-    throw new Error("Currency no exist");
-  }
-  let response: RequestResponse;
+  return new Promise<RequestResponse>(async (resolve, reject) => {
+    if (!existCurrency(currency)) {
+      reject("Currency no exist");
+    }
+    let response: RequestResponse;
 
-  const options: RequestOptions = {
-    hostname: "api.uphold.com",
-    path: `/v0/ticker/${currency}`,
-  };
-
-  try {
-    response = await Request.send(options);
-  } catch (error) {
-    response = error;
-  }
-
-  return response;
+    const options: RequestOptions = {
+      hostname: "api.uphold.com",
+      path: `/v0/ticker/${currency}`,
+    };
+    try {
+      response = await Request.send(options);
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
+  });
 };

@@ -16,7 +16,7 @@ export const startBotPair = async (req: Request, res: Response) => {
   const intervalMilSec: number = bot.intervalMilSec || 5000;
 
   try {
-    Bot.interval(percentDiff, pair, true, 0, intervalMilSec);
+    await Bot.interval(percentDiff, pair, true, 0, intervalMilSec);
     res.status(200).send({ message: "Bot Pair started" });
   } catch (e) {
     res.status(400).json(e);
@@ -35,7 +35,7 @@ export const startBotAllCurrencies = async (req: Request, res: Response) => {
   const intervalMilSec: number = bot.intervalMilSec || 5000;
 
   try {
-    Bot.intervalAllTickerByCurrency(
+    await Bot.intervalAllTickerByCurrency(
       percentDiff,
       currency,
       true,
