@@ -19,6 +19,48 @@ describe('CREATE SERVER', () => {
         expect(res.text).toEqual('Server OK');
     })
 });
+describe('ENDPOINT PAIR', () => {
+    test('CHECK START-PAIR ENDPOINT STATUS',async () => {
+        const res = await request(app).get("/start-pair").send();
+
+        expect(res.statusCode).toEqual(200);
+    })
+    test('CHECK START-PAIR ENDPOINT RETURN',async () => {
+        const res = await request(app).get("/start-pair").send();
+        expect(res.body.message).toBeDefined();
+    })
+    test('CHECK STOP-PAIR ENDPOINT STATUS',async () => {
+        const res = await request(app).get("/stop-pair").send();
+
+        expect(res.statusCode).toEqual(200);
+    })
+    test('CHECK STOP-PAIR ENDPOINT RETURN',async () => {
+        const res = await request(app).get("/stop-pair").send();
+        expect(res.body.message).toBeDefined();
+    })
+
+});
+describe('ENDPOINT CURRENCIES', () => {
+    test('CHECK START-CURRENCIES ENDPOINT STATUS',async () => {
+        const res = await request(app).get("/start-currencies").send();
+
+        expect(res.statusCode).toEqual(200);
+    })
+    test('CHECK START-CURRENCIES ENDPOINT RETURN',async () => {
+        const res = await request(app).get("/start-currencies").send();
+        expect(res.body.message).toBeDefined();
+    })
+    test('CHECK STOP-CURRENCIES ENDPOINT STATUS',async () => {
+        const res = await request(app).get("/stop-currencies").send();
+
+        expect(res.statusCode).toEqual(200);
+    })
+    test('CHECK STOP-CURRENCIES ENDPOINT RETURN',async () => {
+        const res = await request(app).get("/stop-currencies").send();
+        expect(res.body.message).toBeDefined();
+    })
+
+})
 
 describe('ENDPOINT SIGNUP', () => {
     test('CHECK SIGNUP ENDPOINT STATUS',async () => {
